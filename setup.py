@@ -10,7 +10,10 @@ with open("README.md") as readme_file:
 with open("CHANGELOG.md") as history_file:
     history = history_file.read()
 
-requirements = ["Click>=7.0"]
+requirements = [
+    "-e git+https://github.com/maximz/ipynbname.git@master#egg=ipynbname",
+    "python-slugify",
+]
 
 setup_requirements = [
     "pytest-runner",

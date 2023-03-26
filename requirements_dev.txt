@@ -1,13 +1,15 @@
 black==22.3.0
 bump2version==0.5.11
-Click>=7.0
 coverage==4.5.4
 flake8==3.7.8
+# ipynbname
+-e git+https://github.com/maximz/ipynbname.git@master#egg=ipynbname
 pip>=19.2.3
 pre-commit>=2.15.0
-pytest>=7.0.0
 pytest-cov>=4.0.0
 pytest-runner>=5.1
+pytest>=7.0.0
+python-slugify>=5.0.2
 recommonmark>=0.6.0
 requests>=2.28.0
 sphinx>=6.0
