@@ -16,12 +16,15 @@ import logging
 import os
 import sys
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Tuple
+import io
 
 from slugify import slugify
 
 
-def setup_logger(log_dir: Path, name: Optional[str] = None, log_level=logging.INFO):
+def setup_logger(
+    log_dir: Path, name: Optional[str] = None, log_level: int = logging.INFO
+) -> Tuple[logging.Logger, Path]:
     """
     Configure root logger to write to stdout/stderr, and also pipe stdout/stderr (including messages not issued by a logger) to a log file.
     Then returns a child logger for the main application that simply propagates to root logger with an application name attached.
@@ -83,7 +86,11 @@ class ForwardStreamToFile:
 
     # See https://stackoverflow.com/a/31688396/130164
     # Alternative to consider: https://stackoverflow.com/a/616686/130164
-    def __init__(self, file_object, pass_through=None):
+    def __init__(
+        self,
+        file_object: io.TextIOWrapper,
+        pass_through: Optional[io.TextIOWrapper] = None,
+    ) -> None:
         """
         Wrap an output stream to intercept all messages and write them to a file.
 
@@ -100,7 +107,7 @@ class ForwardStreamToFile:
         # only here to make this look like a file object for Jupyter's OutStream to accept this for echoes
         pass
 
-    def _emit_buffered(self):
+    def _emit_buffered(self) -> None:
         # If we have something buffered, write it out.
         if len(self.buffer) > 0:
             # Combine message
@@ -110,7 +117,7 @@ class ForwardStreamToFile:
             # Reset buffer
             self.buffer = []
 
-    def write(self, message):
+    def write(self, message: str) -> None:
         # Reduce unnecessary newlines in messages
         # See https://stackoverflow.com/a/51612402/130164 and https://stackoverflow.com/a/66209331/130164
 
@@ -127,7 +134,7 @@ class ForwardStreamToFile:
             # Pass through to original stdout/err stream even if buffering writes to file
             self.pass_through.write(message)
 
-    def flush(self):
+    def flush(self) -> None:
         # Emit anything buffered, i.e. if there were any writes recently that did not have a \n at the end.
         self._emit_buffered()
 
@@ -145,7 +152,7 @@ class ForwardStreamToFile:
         return self.file_object.isatty()
 
 
-def _forward_standard_streams_to_logger(log_fname):
+def _forward_standard_streams_to_logger(log_fname: Path) -> None:
     """
     Pass any direct stdout or stderr writes to our log file writer too.
 
@@ -175,7 +182,7 @@ def _forward_standard_streams_to_logger(log_fname):
         sys.stdout.echo = ForwardStreamToFile(file_obj)
 
 
-def _is_notebook():
+def _is_notebook() -> bool:
     # From https://stackoverflow.com/a/39662359/130164
     try:
         shell = get_ipython().__class__.__name__
@@ -189,7 +196,7 @@ def _is_notebook():
         return False  # Probably standard Python interpreter
 
 
-def _get_main_application_name():
+def _get_main_application_name() -> str:
     """Get main application name to identify it in logger."""
     if _is_notebook():
         # running a notebook.
