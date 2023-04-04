@@ -1,6 +1,6 @@
 black==22.3.0
 bump2version==0.5.11
-coverage==4.5.4
+coverage>=7.2.2
 flake8==3.7.8
 # ipynbname
 -e git+https://github.com/maximz/ipynbname.git@master#egg=ipynbname
