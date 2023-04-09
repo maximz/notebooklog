@@ -11,7 +11,7 @@ with open("CHANGELOG.md") as history_file:
     history = history_file.read()
 
 requirements = [
-    "-e git+https://github.com/maximz/ipynbname.git@master#egg=ipynbname",
+    "ipynbname>=2023.1.0.0",
     "python-slugify",
 ]
 

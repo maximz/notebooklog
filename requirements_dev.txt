@@ -2,8 +2,7 @@ black==22.3.0
 bump2version==0.5.11
 coverage>=7.2.2
 flake8==3.7.8
-# ipynbname
--e git+https://github.com/maximz/ipynbname.git@master#egg=ipynbname
+ipynbname>=2023.1.0.0
 pip>=19.2.3
 pre-commit>=2.15.0
 pytest-cov>=4.0.0
