@@ -1,4 +1,4 @@
-# NBlog
+# NBlog (WIP)
 
 [![](https://img.shields.io/pypi/v/nblog.svg)](https://pypi.python.org/pypi/nblog)
 [![CI](https://github.com/maximz/nblog/actions/workflows/ci.yaml/badge.svg?branch=master)](https://github.com/maximz/nblog/actions/workflows/ci.yaml)
