@@ -26,9 +26,9 @@ test_requirements = [
 setup(
     author="Maxim Zaslavsky",
     author_email="maxim@maximz.com",
-    name="nblog",
-    description="NBlog",
-    packages=find_packages(include=["nblog", "nblog.*"]),
+    name="notebooklog",
+    description="notebooklog",
+    packages=find_packages(include=["notebooklog", "notebooklog.*"]),
     python_requires=">=3.8",
     version="0.0.1",
     classifiers=[
@@ -48,6 +48,6 @@ setup(
     setup_requires=setup_requirements,
     test_suite="tests",
     tests_require=test_requirements,
-    url="https://github.com/maximz/nblog",
+    url="https://github.com/maximz/notebooklog",
     zip_safe=False,
 )

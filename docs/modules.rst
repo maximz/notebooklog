@@ -1,7 +1,7 @@
-nblog
+notebooklog
 =========
 
 .. toctree::
    :maxdepth: 4
 
-   nblog
+   notebooklog

@@ -1,4 +1,4 @@
-nblog documentation table of contents
+notebooklog documentation table of contents
 ======================================
 
 .. toctree::
@@ -6,5 +6,5 @@ nblog documentation table of contents
    :caption: Contents:
 
    Overview <index>
-   API <nblog>
+   API <notebooklog>
    changelog

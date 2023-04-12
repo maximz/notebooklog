@@ -1,9 +1,9 @@
-# NBlog (WIP)
+# notebooklog (WIP)
 
-[![](https://img.shields.io/pypi/v/nblog.svg)](https://pypi.python.org/pypi/nblog)
-[![CI](https://github.com/maximz/nblog/actions/workflows/ci.yaml/badge.svg?branch=master)](https://github.com/maximz/nblog/actions/workflows/ci.yaml)
-[![](https://img.shields.io/badge/docs-here-blue.svg)](https://nblog.maximz.com)
-[![](https://img.shields.io/github/stars/maximz/nblog?style=social)](https://github.com/maximz/nblog)
+[![](https://img.shields.io/pypi/v/notebooklog.svg)](https://pypi.python.org/pypi/notebooklog)
+[![CI](https://github.com/maximz/notebooklog/actions/workflows/ci.yaml/badge.svg?branch=master)](https://github.com/maximz/notebooklog/actions/workflows/ci.yaml)
+[![](https://img.shields.io/badge/docs-here-blue.svg)](https://notebooklog.maximz.com)
+[![](https://img.shields.io/github/stars/maximz/notebooklog?style=social)](https://github.com/maximz/notebooklog)
 
 ## TODOs: Configuring this template
 
@@ -18,7 +18,7 @@ Set up Codecov at TODO
 ## Installation
 
 ```bash
-pip install nblog
+pip install notebooklog
 ```
 
 ## Usage
@@ -29,8 +29,8 @@ Submit PRs against `develop` branch, then make a release pull request to `master
 
 ```bash
 # Optional: set up a pyenv virtualenv
-pyenv virtualenv 3.9 nblog-3.9
-echo "nblog-3.9" > .python-version
+pyenv virtualenv 3.9 notebooklog-3.9
+echo "notebooklog-3.9" > .python-version
 pyenv version
 
 # Install requirements

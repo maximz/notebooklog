@@ -1,4 +1,4 @@
-nblog package
+notebooklog package
 =================
 
 Submodules
@@ -7,7 +7,7 @@ Submodules
 Module contents
 ---------------
 
-.. automodule:: nblog
+.. automodule:: notebooklog
     :members:
     :undoc-members:
     :show-inheritance:

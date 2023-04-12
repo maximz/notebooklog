@@ -54,15 +54,15 @@ test: ## run tests quickly with the default Python
 	pytest
 
 coverage: ## check code coverage quickly with the default Python
-	coverage run --source nblog -m pytest
+	coverage run --source notebooklog -m pytest
 	coverage report -m
 	coverage html
 	$(BROWSER) htmlcov/index.html
 
 docs: ## generate Sphinx HTML documentation, including API docs
-	rm -f docs/nblog.rst
+	rm -f docs/notebooklog.rst
 	rm -f docs/modules.rst
-	sphinx-apidoc -o docs/ nblog
+	sphinx-apidoc -o docs/ notebooklog
 	$(MAKE) -C docs clean
 	$(MAKE) -C docs html
 	$(BROWSER) docs/_build/html/index.html
