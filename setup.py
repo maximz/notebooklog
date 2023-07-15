@@ -30,7 +30,7 @@ setup(
     description="notebooklog",
     packages=find_packages(include=["notebooklog", "notebooklog.*"]),
     python_requires=">=3.8",
-    version="0.0.1",
+    version="0.0.2",
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",
         "Intended Audience :: Developers",

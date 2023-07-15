@@ -8,7 +8,7 @@ This will capture any direct stdout/stderr writes that didn't come from a logger
 
 __author__ = """Maxim Zaslavsky"""
 __email__ = "maxim@maximz.com"
-__version__ = "0.0.1"
+__version__ = "0.0.2"
 
 
 import datetime
@@ -143,6 +143,9 @@ class ForwardStreamToFile:
         if self.pass_through is not None:
             # Flush the pass-through stream.
             self.pass_through.flush()
+
+    def close(self) -> None:
+        self.flush()
 
     def isatty(self):
         # pytest checks file.isatty()
