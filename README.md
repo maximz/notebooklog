@@ -1,5 +1,10 @@
 # notebooklog
 
+[![](https://img.shields.io/pypi/v/notebooklog.svg)](https://pypi.python.org/pypi/notebooklog)
+[![CI](https://github.com/maximz/notebooklog/actions/workflows/ci.yaml/badge.svg?branch=master)](https://github.com/maximz/notebooklog/actions/workflows/ci.yaml)
+[![](https://img.shields.io/badge/docs-here-blue.svg)](https://notebooklog.maximz.com)
+[![](https://img.shields.io/github/stars/maximz/notebooklog?style=social)](https://github.com/maximz/notebooklog)
+
 `notebooklog` is a small Python helper for capturing notebook or script output in
 a log file without hiding it from the user. It configures Python logging and also
 copies direct `stdout`/`stderr` writes, so messages from `print`, uncaught tracebacks,
