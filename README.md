@@ -1,19 +1,12 @@
-# notebooklog (WIP)
+# notebooklog
 
-[![](https://img.shields.io/pypi/v/notebooklog.svg)](https://pypi.python.org/pypi/notebooklog)
-[![CI](https://github.com/maximz/notebooklog/actions/workflows/ci.yaml/badge.svg?branch=master)](https://github.com/maximz/notebooklog/actions/workflows/ci.yaml)
-[![](https://img.shields.io/badge/docs-here-blue.svg)](https://notebooklog.maximz.com)
-[![](https://img.shields.io/github/stars/maximz/notebooklog?style=social)](https://github.com/maximz/notebooklog)
+`notebooklog` is a small Python helper for capturing notebook or script output in
+a log file without hiding it from the user. It configures Python logging and also
+copies direct `stdout`/`stderr` writes, so messages from `print`, uncaught tracebacks,
+warnings, and regular loggers can land in the same timestamped file.
 
-## TODOs: Configuring this template
-
-Create a Netlify site for your repository, then turn off automatic builds in Netlify settings.
-
-Add these CI secrets: `PYPI_API_TOKEN`, `NETLIFY_AUTH_TOKEN` (Netlify user settings - personal access tokens), `DEV_NETLIFY_SITE_ID`, `PROD_NETLIFY_SITE_ID` (API ID from Netlify site settings)
-
-Set up Codecov at TODO
-
-## Overview
+The package is intended for long-running notebooks and scripts where the visible
+session output is useful in the moment, but a durable record is needed afterward.
 
 ## Installation
 
@@ -21,36 +14,72 @@ Set up Codecov at TODO
 pip install notebooklog
 ```
 
+`notebooklog` supports Python 3.8+ and depends on `ipynbname` and
+`python-slugify`.
+
 ## Usage
+
+```python
+import logging
+from pathlib import Path
+
+from notebooklog import setup_logger
+
+logger, log_path = setup_logger(
+    Path("logs"),
+    name="analysis-run",
+    log_level=logging.INFO,
+)
+
+logger.info("Starting analysis")
+print("Printed output is copied to the same log file")
+
+print(f"Writing log to {log_path}")
+```
+
+`setup_logger()` returns a named child logger plus the path to the log file it
+created. If `name` is omitted, the package tries to infer one from the current
+Jupyter notebook, the `HEADLESS_NOTEBOOK_NAME` environment variable, the running
+script filename, or a fallback name for interactive sessions.
+
+## How it works
+
+Calling `setup_logger(log_dir, name=None, log_level=logging.INFO)`:
+
+- creates `log_dir` if it does not already exist;
+- creates a UTC timestamped log file named like
+  `YYYYMMDD_HH-MM-SS.<slugified-name>.log`;
+- configures the root logger with a formatted `stderr` handler at the requested
+  log level;
+- enables `logging.captureWarnings(True)`;
+- copies direct `stdout` and `stderr` writes into the log file.
+
+In a normal Python process, `sys.stdout` and `sys.stderr` are wrapped with a
+pass-through stream that writes to both the original stream and the log file. In
+a Jupyter notebook, the package leaves the active notebook streams in place and
+attaches file writers through their `echo` hooks so later cell output is still
+shown in the correct cell.
+
+## Important behavior
+
+`setup_logger()` changes process-wide logging and standard stream state. Call it
+once near the start of a notebook or script; repeated calls add more root logging
+handlers and can duplicate formatted log messages.
+
+The log directory is created with `Path.mkdir(exist_ok=True)`, so parent
+directories must already exist. The package exposes an importable API only; it
+does not define a command-line interface.
 
 ## Development
 
-Submit PRs against `develop` branch, then make a release pull request to `master`.
-
 ```bash
-# Optional: set up a pyenv virtualenv
-pyenv virtualenv 3.9 notebooklog-3.9
-echo "notebooklog-3.9" > .python-version
-pyenv version
-
-# Install requirements
-pip install --upgrade pip wheel
 pip install -r requirements_dev.txt
-
-# Install local package
 pip install -e .
-
-# Install pre-commit
-pre-commit install
-
-# Run tests
 make test
-
-# Run lint
 make lint
-
-# bump version before submitting a PR against master (all master commits are deployed)
-bump2version patch # possible: major / minor / patch
-
-# also ensure CHANGELOG.md updated
+make docs
 ```
+
+The repository also includes Sphinx documentation configuration, GitHub Actions
+CI, coverage settings, and packaging metadata for building and publishing the
+Python package.
